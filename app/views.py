@@ -17,7 +17,7 @@ def index(path):
 
     try:
 
-        #Detect the current page
+        # Detect the current page
         segment = get_segment( request )
 
         # Serve the file (if exists) from app/templates/FILE.html

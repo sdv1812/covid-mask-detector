@@ -1,10 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "layouts/base.html" %}
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Edit Profile</h4>
+                  <p class="card-category">Complete your profile</p>
+                </div>
+                <div class="card-body">
+                    <div id="recorder">
+                      <button id="start">Start</button>
+                      <button id="stop">Stop</button>
+                      <a id="download"></a>
+                    </div>
+                    <img id="video" src="{{ url_for('video_viewer') }}" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+console.log("dsdsdsd");
+    var buttonStart = document.getElementById("start");
+var buttonStop = document.getElementById("stop");
+
+buttonStop.disabled = true;
+buttonStart.onclick = function() {
+    console.log("sssss");
+  // var url = window.location.href + "record_status";
+  buttonStart.disabled = true;
+  buttonStop.disabled = false;
+
+  // disable download link
+  var downloadLink = document.getElementById("download");
+  downloadLink.text = "";
+  downloadLink.href = "";
+
+  // XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // alert(xhr.responseText);
+    }
+  };
+  xhr.open("POST", "/track/0");
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(JSON.stringify({ status: "true" }));
+};
+
+buttonStop.onclick = function() {
+    console.log("ssssstops");
+  buttonStart.disabled = false;
+  buttonStop.disabled = true;
+
+  // XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // alert(xhr.responseText);
+
+      // enable download link
+      var downloadLink = document.getElementById("download");
+      downloadLink.text = "Download Video";
+      downloadLink.href = "/static/video.avi";
+    }
+  };
+  xhr.open("POST", "/track/0");
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(JSON.stringify({ status: "false" }));
+};
+
+</script>
+{% endblock javascripts %}

@@ -2,8 +2,8 @@ var buttonStart = document.getElementById("start");
 var buttonStop = document.getElementById("stop");
 
 buttonStop.disabled = true;
-
 buttonStart.onclick = function() {
+
   // var url = window.location.href + "record_status";
   buttonStart.disabled = true;
   buttonStop.disabled = false;

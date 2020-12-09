@@ -11,7 +11,7 @@ class RecordingThread (threading.Thread):
         self.cap = camera
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
         self.out = cv2.VideoWriter(
-            './static/video.avi', fourcc, 20.0, (640, 480))
+            './app/static/video.avi', fourcc, 20.0, (640, 480))
 
     def run(self):
         while self.isRunning:
@@ -56,6 +56,7 @@ class VideoCamera(object):
             return None
 
     def start_tracking(self):
+        print("inside start_tracking")
         self.is_record = True
         self.recordingThread = RecordingThread(
             "Video Recording Thread", self.cap)
